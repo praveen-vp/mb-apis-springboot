@@ -6,7 +6,8 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-
+@EqualsAndHashCode
+@ToString
 public class BaseAcctObj {
     private @NonNull String acctNumber;
 }

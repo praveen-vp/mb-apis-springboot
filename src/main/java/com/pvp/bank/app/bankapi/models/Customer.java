@@ -1,11 +1,9 @@
 package com.pvp.bank.app.bankapi.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -13,18 +11,32 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
+@EqualsAndHashCode
+@Builder
 public class Customer {
 
-    private final @NonNull String userId;
-    private @NonNull String appId;
-    private String mpin;
+    @Id
+    private @NonNull String userId;
+    private String appId;
+    private String mPin;
     private String customerStatus;
 
-    private String mpinStatus;
+    private String mPinStatus;
     private String createdAt;
     private String statusUpdatedAt;
-    private String mpinStatusUpdatedAt;
+    private String mPinStatusUpdatedAt;
 
-    private Integer mpinAttempt;
+    private Integer mPinAttempt;
+    private Integer otp;
 
+    public Customer(String userId, String mPin) {
+        this.userId = userId;
+        this.mPin = mPin;
+    }
+
+    // TODO finish the coding here
+    public String toSHA256() {
+        return mPin;
+    }
 }

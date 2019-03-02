@@ -1,6 +1,7 @@
 package com.pvp.bank.app.bankapi.baseservice;
 
 import com.pvp.bank.app.bankapi.models.BaseEntity;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -13,7 +14,7 @@ public class AbstractBaseService implements BaseService {
     private final @NonNull String appId;
     private @NonNull BaseEntity requestData;
 
-    AbstractBaseService(String userId, String appId) {
+    public AbstractBaseService(String userId, String appId) {
         this.userId = userId;
         this.appId = appId;
         this.requestData = new BaseEntity();
