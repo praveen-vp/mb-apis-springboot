@@ -2,8 +2,9 @@ package com.pvp.bank.app.bankapi.login.services;
 
 import com.pvp.bank.app.bankapi.models.Customer;
 
-public interface OTPByCall {
+public interface VerifyMpin {
 
-    Boolean sendOTPByCall(Customer customer);
+    Boolean validateMpinPattern();
 
+    Boolean verifyMpin(Customer customer);
 }

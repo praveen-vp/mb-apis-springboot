@@ -2,8 +2,8 @@ package com.pvp.bank.app.bankapi.login.services;
 
 import com.pvp.bank.app.bankapi.models.Customer;
 
-public interface OTPByCall {
+public interface GenerateMpin {
 
-    Boolean sendOTPByCall(Customer customer);
+    Boolean generateMpin(Customer customer);
 
 }

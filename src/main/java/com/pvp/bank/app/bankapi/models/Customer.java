@@ -36,7 +36,7 @@ public class Customer {
     }
 
     // TODO finish the coding here
-    public String toSHA256() {
+    public String mpinToSHA256() {
         return mPin;
     }
 }

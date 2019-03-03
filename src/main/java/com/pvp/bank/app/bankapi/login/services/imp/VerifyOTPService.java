@@ -1,20 +1,21 @@
-package com.pvp.bank.app.bankapi.login.services;
+package com.pvp.bank.app.bankapi.login.services.imp;
 
 import com.pvp.bank.app.bankapi.login.dao.VerifyOTPProcedureCall;
+import com.pvp.bank.app.bankapi.login.services.VerifyOTP;
 import com.pvp.bank.app.bankapi.models.Customer;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Data
 @Service
-public class VerifyOTPService {
+public class VerifyOTPService implements VerifyOTP<Customer> {
 
+    @Autowired
     private final VerifyOTPProcedureCall verifyOTPProcedureCall;
     Customer customer;
 
-    public VerifyOTPService(VerifyOTPProcedureCall verifyOTPProcedureCall) {
-        this.verifyOTPProcedureCall = verifyOTPProcedureCall;
-    }
-
-    private Boolean validateInput() {
+    public Boolean validateInput() {
         return true;
     }
 

@@ -15,7 +15,7 @@
 //    private String mPin;
 //
 //    //TODO need to implement this method.
-//    public String toSHA256() {
+//    public String mpinToSHA256() {
 //        return mPin;
 //    }
 //}

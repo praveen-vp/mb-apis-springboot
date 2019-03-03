@@ -1,18 +1,19 @@
-package com.pvp.bank.app.bankapi.login.services;
+package com.pvp.bank.app.bankapi.login.services.imp;
 
 import com.pvp.bank.app.bankapi.login.dao.GenerateMpinProcedureCall;
 import com.pvp.bank.app.bankapi.models.Customer;
+import com.pvp.bank.app.bankapi.login.services.GenerateMpin;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Data
 @Service
-public class GenerateMpinService {
+public class GenerateMpinService implements GenerateMpin {
 
+    @Autowired
     private final GenerateMpinProcedureCall generateMpinProcedureCall;
     private Customer customer;
-
-    public GenerateMpinService(GenerateMpinProcedureCall generateMpinProcedureCall) {
-        this.generateMpinProcedureCall = generateMpinProcedureCall;
-    }
 
     private Boolean validateInputs() {
         return true;

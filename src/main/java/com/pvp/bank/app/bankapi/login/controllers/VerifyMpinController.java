@@ -1,19 +1,18 @@
 package com.pvp.bank.app.bankapi.login.controllers;
 
-import com.pvp.bank.app.bankapi.login.services.VerifyMpinService;
+import com.pvp.bank.app.bankapi.login.services.imp.VerifyMpinService;
 import com.pvp.bank.app.bankapi.models.Customer;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@Data
 @Controller
 public class VerifyMpinController {
 
-    public VerifyMpinService verifyMpinService;
-
-    public VerifyMpinController(VerifyMpinService verifyMpinService) {
-        this.verifyMpinService = verifyMpinService;
-    }
-
+    @Autowired
+    public final VerifyMpinService verifyMpinService;
 
     @RequestMapping("/test")
     public Boolean test() {

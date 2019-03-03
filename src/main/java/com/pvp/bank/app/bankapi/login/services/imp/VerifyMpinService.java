@@ -1,27 +1,21 @@
-package com.pvp.bank.app.bankapi.login.services;
+package com.pvp.bank.app.bankapi.login.services.imp;
 
 import com.pvp.bank.app.bankapi.login.dao.VerifyMpinProcedureCall;
+import com.pvp.bank.app.bankapi.login.services.VerifyMpin;
 import com.pvp.bank.app.bankapi.models.Customer;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Getter
-@Setter
-@ToString
+@Data
 @Service
-public class VerifyMpinService {
+public class VerifyMpinService implements VerifyMpin {
 
-    private Customer customer;
+    @Autowired
     private final VerifyMpinProcedureCall verifyMpinProcedureCall;
+    private Customer customer;
 
-    public VerifyMpinService(VerifyMpinProcedureCall verifyMpinProcedureCall) {
-        this.verifyMpinProcedureCall = verifyMpinProcedureCall;
-    }
-
-
-    private boolean validateMpinPattern() {
+    public Boolean validateMpinPattern() {
 
         if (null != customer.getUserId() && null != customer.getMPin()) {
             // validate userid according to the requirements
@@ -29,7 +23,7 @@ public class VerifyMpinService {
             // validate mpin according to the requirements
             //if ok then convert it to SHA-256 and set it again
 
-            customer.setMPin(customer.toSHA256());
+            customer.setMPin(customer.mpinToSHA256());
 
             return true;
         }
@@ -38,7 +32,7 @@ public class VerifyMpinService {
     }
 
 
-    public boolean verifyMpin(Customer customer) {
+    public Boolean verifyMpin(Customer customer) {
 
         this.customer = customer;
 

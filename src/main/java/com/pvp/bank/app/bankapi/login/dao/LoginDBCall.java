@@ -26,6 +26,12 @@ import java.io.Serializable;
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "userId", type = String.class),
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "mpin", type = Integer.class),
                         @StoredProcedureParameter(mode = ParameterMode.OUT, name = "responseCode", type = String.class)
+                }),
+        @NamedStoredProcedureQuery(name = "validateCustomerID",
+                procedureName = "pkg_login.validateCustomerID",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "userId", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "responseCode", type = String.class)
                 })
 })
 public class LoginDBCall implements Serializable {
