@@ -1,8 +1,9 @@
 package com.pvp.bank.app.bankapi.login.services.imp;
 
+import com.pvp.bank.app.bankapi.Appconstants;
+import com.pvp.bank.app.bankapi.exceptions.BankException;
 import com.pvp.bank.app.bankapi.login.dao.ValidateCustomerIDProcedureCall;
 import com.pvp.bank.app.bankapi.login.services.ValidateCustomerId;
-import com.pvp.bank.app.bankapi.models.Customer;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,14 @@ public class ValidateCustomerIDService implements ValidateCustomerId {
     @Autowired
     private final ValidateCustomerIDProcedureCall procedureCall;
 
-    public Boolean validateCustomerID(Customer customer) {
-        this.procedureCall.executeProcedure(customer.getUserId());
-        return true;
+    public Boolean validateCustomerID(String userId) throws BankException {
+
+        String responseCode = this.procedureCall.executeProcedure(userId);
+
+        if (responseCode.equals(Appconstants.SUCCESS)) {
+            return true;
+        } else {
+            throw new BankException(responseCode);
+        }
     }
 }

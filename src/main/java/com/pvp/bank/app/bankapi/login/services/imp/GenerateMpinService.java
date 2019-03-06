@@ -1,19 +1,23 @@
 package com.pvp.bank.app.bankapi.login.services.imp;
 
 import com.pvp.bank.app.bankapi.login.dao.GenerateMpinProcedureCall;
-import com.pvp.bank.app.bankapi.models.Customer;
 import com.pvp.bank.app.bankapi.login.services.GenerateMpin;
-import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.pvp.bank.app.bankapi.models.Customer;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Service;
 
-@Data
+@Getter
+@Setter
 @Service
 public class GenerateMpinService implements GenerateMpin {
 
-    @Autowired
     private final GenerateMpinProcedureCall generateMpinProcedureCall;
     private Customer customer;
+
+    public GenerateMpinService(GenerateMpinProcedureCall generateMpinProcedureCall) {
+        this.generateMpinProcedureCall = generateMpinProcedureCall;
+    }
 
     private Boolean validateInputs() {
         return true;
@@ -22,7 +26,7 @@ public class GenerateMpinService implements GenerateMpin {
     public Boolean generateMpin(Customer customer) {
         this.customer = customer;
         validateInputs();
-        generateMpinProcedureCall.executeProcedure(customer.getUserId(), customer.getMPin());
+        this.generateMpinProcedureCall.executeProcedure(customer.getUserId(), customer.getMPin());
         return true;
     }
 }
