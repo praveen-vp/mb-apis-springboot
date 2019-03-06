@@ -10,11 +10,11 @@ public class AESEncryptionDecryptionService implements EncryptionDecryptionServi
 
     @Override
     public String encryptResponse(String responseString) {
-        return null;
+        return "Dummy Response";
     }
 
     @Override
     public BaseData decryptRequest(String responseString) {
-        return null;
+        return new BaseData().builder().userId("dummy userID from AES Dummy Service").build();
     }
 }

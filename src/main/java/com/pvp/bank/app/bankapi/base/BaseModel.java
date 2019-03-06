@@ -11,4 +11,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class BaseModel {
     private String msgId;
+    private Long reqTime = System.currentTimeMillis();
+    private Long respTime;
 }
