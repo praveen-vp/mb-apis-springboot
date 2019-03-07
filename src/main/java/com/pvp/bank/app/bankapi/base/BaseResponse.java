@@ -1,6 +1,6 @@
 package com.pvp.bank.app.bankapi.base;
 
-import com.pvp.bank.app.bankapi.Appconstants;
+import com.pvp.bank.app.bankapi.appconstants.Appconstants;
 import com.pvp.bank.app.bankapi.helper.Utils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

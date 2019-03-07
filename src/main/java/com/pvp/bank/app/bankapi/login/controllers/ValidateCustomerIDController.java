@@ -7,13 +7,16 @@ import com.pvp.bank.app.bankapi.base.ValidationService;
 import com.pvp.bank.app.bankapi.exceptions.BankException;
 import com.pvp.bank.app.bankapi.login.services.imp.ValidateCustomerIDService;
 import com.pvp.bank.app.bankapi.security.EncryptionDecryptionService;
+import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ValidateCustomerIDController extends BaseController {
 
-    private final ValidateCustomerIDService validateCustomerIDService;
+    @Autowired
+    private @NonNull ValidateCustomerIDService validateCustomerIDService;
 
     public ValidateCustomerIDController(EncryptionDecryptionService encryptionDecryptionService,
                                         ValidationService validationService,

@@ -13,8 +13,8 @@ public class BaseRequest extends BaseModel {
 
     private String appId;
     private BaseData data;
+    private String eData;
 
     public BaseRequest() {
-
     }
 }

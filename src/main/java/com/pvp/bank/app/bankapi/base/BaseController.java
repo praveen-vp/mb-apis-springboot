@@ -1,12 +1,10 @@
 package com.pvp.bank.app.bankapi.base;
 
-import com.pvp.bank.app.bankapi.Appconstants;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pvp.bank.app.bankapi.appconstants.Appconstants;
 import com.pvp.bank.app.bankapi.exceptions.BankException;
 import com.pvp.bank.app.bankapi.security.EncryptionDecryptionService;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +13,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
+@RequiredArgsConstructor
 public abstract class BaseController {
 
     protected Boolean requestStatus = false;
@@ -23,37 +22,9 @@ public abstract class BaseController {
     protected BaseResponse baseResponse;
 
     @Autowired
-    private EncryptionDecryptionService encryptionDecryptionService;
-
+    protected @NonNull EncryptionDecryptionService encryptionDecryptionService;
     @Autowired
-    private ValidationService validationService;
-
-    public BaseController(EncryptionDecryptionService encryptionDecryptionService, ValidationService validationService) {
-        this.encryptionDecryptionService = encryptionDecryptionService;
-        this.validationService = validationService;
-    }
-
-    /**
-     * The method which processes all the request related operations.
-     * This will be implemented in the sub classes.
-     *
-     * @throws BankException
-     */
-    public abstract void requestHandler() throws BankException;
-
-    protected BaseData decryptRequest(BaseRequest request) {
-        // TODO proper implementation is required
-        return encryptionDecryptionService.decryptRequest(request.getData().toString());
-    }
-
-    protected String encryptResponse(BaseResponse response) {
-        return this.encryptionDecryptionService.encryptResponse(response.toString());
-    }
-
-    public void initialiseReqResp(BaseRequest baseRequest) throws Exception {
-        this.baseRequest = baseRequest;
-        this.baseResponse = new BaseResponse(baseRequest);
-    }
+    protected @NonNull ValidationService validationService;
 
     protected BaseResponse process(BaseRequest request) throws Exception {
 
@@ -62,6 +33,7 @@ public abstract class BaseController {
 
         try {
             this.requestData = decryptRequest(request);
+
             if (validationService.validate(request)) {
                 requestHandler();
             } else {
@@ -77,5 +49,44 @@ public abstract class BaseController {
         }
 
         return this.baseResponse;
+    }
+
+    /**
+     * The method which processes all the request related operations.
+     * This will be implemented in the sub classes.
+     *
+     * @throws BankException
+     */
+    public abstract void requestHandler() throws BankException;
+
+    /**
+     * This method is required to get the proper object as per the request.
+     *
+     * @param decryptedString
+     * @return
+     * @throws BankException
+     */
+    public BaseData typeCastRequestData(String decryptedString) throws BankException {
+        try {
+            System.out.println(" BaseController decrypted String -- " + decryptedString);
+            return new ObjectMapper().readerFor(BaseData.class).readValue(decryptedString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new BankException(Appconstants.OBJECT_MAPPING_FAILED);
+        }
+    }
+
+    protected BaseData decryptRequest(BaseRequest request) throws BankException {
+        System.out.println(" Base Controller BaseRequest Recieved --- " + request);
+        return typeCastRequestData(encryptionDecryptionService.decryptRequest(request.getEData()));
+    }
+
+    protected String encryptResponse(BaseResponse response) {
+        return this.encryptionDecryptionService.encryptResponse(response.toString());
+    }
+
+    public void initialiseReqResp(BaseRequest baseRequest) throws Exception {
+        this.baseRequest = baseRequest;
+        this.baseResponse = new BaseResponse(baseRequest);
     }
 }

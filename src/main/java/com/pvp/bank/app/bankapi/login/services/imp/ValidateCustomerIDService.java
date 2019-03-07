@@ -1,6 +1,6 @@
 package com.pvp.bank.app.bankapi.login.services.imp;
 
-import com.pvp.bank.app.bankapi.Appconstants;
+import com.pvp.bank.app.bankapi.appconstants.Appconstants;
 import com.pvp.bank.app.bankapi.exceptions.BankException;
 import com.pvp.bank.app.bankapi.login.dao.ValidateCustomerIDProcedureCall;
 import com.pvp.bank.app.bankapi.login.services.ValidateCustomerId;
