@@ -9,20 +9,19 @@ import lombok.experimental.SuperBuilder;
 
 @ToString
 @Data
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @SuperBuilder
 public class BaseResponse extends BaseModel {
 
     private String errorCode;
     private String errorDesc;
     private String appId;
-    private String requestId;
     private BaseData data;
 
     public BaseResponse(BaseRequest baseRequest) throws Exception {
         this.errorCode = Appconstants.SUCCESS;
         this.appId = baseRequest.getAppId();
-        this.requestId = Utils.getSHA1_diget(baseRequest.getReqTime() + this.appId);
-        this.data = baseRequest.getData();
+        setMsgId(Utils.generateReqId(baseRequest.getReqTime() + this.appId + baseRequest.getEData()));
+        baseRequest.setMsgId(this.getMsgId());
     }
 }
