@@ -48,6 +48,7 @@ public abstract class BaseController {
             encryptResponse(baseResponse);
         }
 
+        this.baseResponse.setRespTime(System.currentTimeMillis());
         return this.baseResponse;
     }
 
@@ -77,8 +78,8 @@ public abstract class BaseController {
     }
 
     protected BaseData decryptRequest(BaseRequest request) throws BankException {
-        System.out.println(" Base Controller BaseRequest Recieved --- " + request);
-        return typeCastRequestData(encryptionDecryptionService.decryptRequest(request.getEData()));
+        System.out.println(" Base Controller BaseRequest Received --- " + request);
+        return typeCastRequestData(encryptionDecryptionService.decryptRequest(request.getData().toJson()));
     }
 
     protected String encryptResponse(BaseResponse response) {
