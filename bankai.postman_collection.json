@@ -1,0 +1,153 @@
+{
+	"info": {
+		"_postman_id": "0a0b0efd-5ea7-4ded-9f4e-036b64ea4b01",
+		"name": "bankai",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/ValidateCustomerId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ae2ba4c1-323d-4db9-afd0-9e2266f6fdca",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Error code test\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.errorCode).to.eql(\"000\");",
+							"    pm.expect(jsonData.errorDesc).to.eql(\"SUCCESS\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"applicationId\" : \"8874a890ef9d916f4c2a2b8c4f7ac087d444c2ea\",\n\t\"encData\" : \"{\\\"userId\\\":\\\"12345\\\"}\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/ValidateCustomerId",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ValidateCustomerId"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/generatempin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d6c8604d-1c96-4981-9f62-434d4d8c69a8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Error code test\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.errorCode).to.eql(\"000\");",
+							"    pm.expect(jsonData.errorDesc).to.eql(\"SUCCESS\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"applicationId\" : \"8874a890ef9d916f4c2a2b8c4f7ac087d444c2ea\",\n\t\"encData\" : \"{\\\"userId\\\":\\\"12345\\\",\\\"mpin\\\":\\\"121212\\\"}\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/GenerateMpin",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"GenerateMpin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verifyMpin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b90ba9d7-7499-4588-b800-9df7e2437016",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Error code test\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.errorCode).to.eql(\"000\");",
+							"    pm.expect(jsonData.errorDesc).to.eql(\"SUCCESS\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"applicationId\": \"8874a890ef9d916f4c2a2b8c4f7ac087d444c2ea\",\n    \"encData\": \"{\\\"userId\\\":\\\"12345\\\",\\\"mpin\\\":\\\"121212\\\"}\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/VerifyMpin",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"VerifyMpin"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
