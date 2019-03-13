@@ -12,14 +12,6 @@ import java.io.Serializable;
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "mPin", type = String.class),
                         @StoredProcedureParameter(mode = ParameterMode.OUT, name = "responseCode", type = String.class)
                 }),
-        @NamedStoredProcedureQuery(name = "verifyOTP",
-                procedureName = "pkg_login.verifyOTP",
-                parameters = {
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "userId", type = String.class),
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "applicationId", type = String.class),
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "otp", type = Integer.class),
-                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "responseCode", type = String.class)
-                }),
         @NamedStoredProcedureQuery(name = "generateMpin",
                 procedureName = "pkg_login.generateMpin",
                 parameters = {
@@ -32,7 +24,22 @@ import java.io.Serializable;
                 parameters = {
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "userId", type = String.class),
                         @StoredProcedureParameter(mode = ParameterMode.OUT, name = "responseCode", type = String.class)
-                })
+                }),
+        @NamedStoredProcedureQuery(name = "generateOTP",
+                procedureName = "pkg_login.generateOTP",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "userId", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "appId", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "otp", type = Integer.class)
+                }),
+        @NamedStoredProcedureQuery(name = "verifyOTP",
+                procedureName = "pkg_login.verifyOTP",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "userId", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "appId", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "otp", type = Integer.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "responseCode", type = String.class)
+                }),
 })
 public class LoginDBCall implements Serializable {
 

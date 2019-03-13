@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface VerifyOTPProcedureCall extends JpaRepository<LoginDBCall, Long> {
 
     @Procedure(name = "verifyOTP")
-    String executeProcedure(@Param("userId") String userId, @Param("applicationId") String mPin,
-                            @Param("otp") Integer otp);
+    String verifyOTP(@Param("userId") String userId, @Param("appId") String appId,
+                     @Param("otp") Integer otp);
 }

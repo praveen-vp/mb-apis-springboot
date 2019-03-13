@@ -29,6 +29,7 @@ public class Customer extends BaseData {
 
     private Integer mPinAttempt;
     private Integer otp;
+    private Integer mobile;
 
     public Customer(String userId, String mPin) throws NoSuchAlgorithmException {
         super(userId);
