@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VerifyMpinProcedureCall extends JpaRepository<LoginDBCall, Long> {
 
-    @Procedure(name = "verifympin")
+    @Procedure(name = "verifyMpin")
     String executeProcedure(@Param("userId") String userId, @Param("mPin") String mPin);
 
 }

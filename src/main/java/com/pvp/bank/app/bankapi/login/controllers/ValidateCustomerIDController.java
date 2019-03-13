@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ValidateCustomerIDController extends BaseController {
+public class ValidateCustomerIDController extends BaseController<BaseData> {
 
     @Autowired
     private @NonNull ValidateCustomerId validateCustomerIDService;
@@ -23,6 +23,7 @@ public class ValidateCustomerIDController extends BaseController {
                                         ValidateCustomerIDService validateCustomerIDService) {
         super(encryptionDecryptionService, validationService);
         this.validateCustomerIDService = validateCustomerIDService;
+        this.requestData = new BaseData();
     }
 
     /**
@@ -35,13 +36,14 @@ public class ValidateCustomerIDController extends BaseController {
     @RequestMapping(value = "/ValidateCustomerId",
             produces = {"application/json"},
             method = RequestMethod.POST)
-    public BaseResponse validateCustomerId(@RequestBody BaseRequest request) throws Exception {
+    public BaseResponse validateCustomerId(@RequestBody SecureBaseRequest request) throws Exception {
+        System.out.println("Request Received -- " + request);
         return super.process(request);
     }
 
     @Override
     public void requestHandler() throws BankException {
         this.requestStatus = this.validateCustomerIDService.validateCustomerID(requestData.getUserId());
-        this.baseResponse.setData(new BaseData(requestData.getUserId()));
+        this.baseResponse.setData(BaseData.BaseDataBuilder().userId(requestData.getUserId()).build());
     }
 }

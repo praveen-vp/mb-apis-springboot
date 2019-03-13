@@ -1,29 +1,38 @@
 package com.pvp.bank.app.bankapi.login.services.imp;
 
+import com.pvp.bank.app.bankapi.appconstants.Appconstants;
+import com.pvp.bank.app.bankapi.exceptions.BankException;
 import com.pvp.bank.app.bankapi.login.dao.VerifyMpinProcedureCall;
 import com.pvp.bank.app.bankapi.login.services.VerifyMpin;
 import com.pvp.bank.app.bankapi.models.Customer;
 import lombok.Data;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.security.NoSuchAlgorithmException;
 
 @Data
 @Service
 public class VerifyMpinService implements VerifyMpin {
 
     @Autowired
-    private final VerifyMpinProcedureCall verifyMpinProcedureCall;
+    private final @NonNull VerifyMpinProcedureCall verifyMpinProcedureCall;
     private Customer customer;
 
-    public Boolean validateMpinPattern() {
+    public Boolean validateMpinPattern() throws BankException {
 
         if (null != customer.getUserId() && null != customer.getMPin()) {
             // validate userid according to the requirements
 
             // validate mpin according to the requirements
-            //if ok then convert it to SHA-256 and set it again
-
-            customer.setMPin(customer.mpinToSHA256());
+            if (customer.getMPin().length() == 6) {
+                try {
+                    customer.setMPin(customer.mpinToSHA256());
+                } catch (NoSuchAlgorithmException e) {
+                    throw new BankException(e.getMessage());
+                }
+            }
 
             return true;
         }
@@ -32,15 +41,21 @@ public class VerifyMpinService implements VerifyMpin {
     }
 
 
-    public Boolean verifyMpin(Customer customer) {
+    public Boolean verifyMpin(Customer customer) throws BankException {
 
         this.customer = customer;
 
         if (!validateMpinPattern()) {
-            throw new RuntimeException("Invalid Input Details");
+            throw new BankException(Appconstants.INVALID_REQUEST);
         }
 
-        String responseCode = verifyMpinProcedureCall.executeProcedure(customer.getUserId(), customer.getMPin());
-        return responseCode.equals("0000");
+        String responseCode = verifyMpinProcedureCall.executeProcedure
+                (customer.getUserId(), customer.getMPin());
+
+        if (responseCode.equals(Appconstants.SUCCESS)) {
+            return true;
+        } else {
+            throw new BankException(responseCode);
+        }
     }
 }

@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 
 @Profile("default")
 @Service
-public class RequestValidationService implements ValidationService<BaseRequest> {
+public class RequestValidationService implements ValidationService<SecureBaseRequest> {
 
     @Override
-    public Boolean validate(BaseRequest object) throws BankException {
+    public Boolean validate(SecureBaseRequest object) throws BankException {
         return true; // TODO need to implement the details
     }
 }

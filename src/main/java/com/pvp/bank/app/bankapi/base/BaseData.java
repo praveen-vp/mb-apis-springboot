@@ -1,17 +1,38 @@
 package com.pvp.bank.app.bankapi.base;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.*;
+import org.json.JSONObject;
 
-@NoArgsConstructor
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
+@EqualsAndHashCode(callSuper = false)
+@MappedSuperclass
 @AllArgsConstructor
-@Builder
-@EqualsAndHashCode
-@Data
-public class BaseData {
+@Getter
+@Setter
+@ToString
+public class BaseData extends JSONObject {
 
-    String userId;
+    @JsonIgnore
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    Long id;
+    private String userId;
+
+    public BaseData() {
+    }
+
+    @Builder(builderMethodName = "BaseDataBuilder")
+    public BaseData(String userId) {
+        super();
+        this.userId = userId;
+    }
 
     public String toJson() {
         try {
@@ -20,4 +41,5 @@ public class BaseData {
             throw new RuntimeException(e);
         }
     }
+
 }

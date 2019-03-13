@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+import java.security.NoSuchAlgorithmException;
+
 @ToString
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -14,14 +16,14 @@ import lombok.experimental.SuperBuilder;
 public class BaseResponse extends BaseModel {
 
     private String errorCode;
-    private String errorDesc;
+    private String errorDesc = "SUCCESS";
     private String appId;
     private BaseData data;
 
-    public BaseResponse(BaseRequest baseRequest) throws Exception {
+    public BaseResponse(SecureBaseRequest secBaseRequest) throws NoSuchAlgorithmException {
         this.errorCode = Appconstants.SUCCESS;
-        this.appId = baseRequest.getAppId();
-        setMsgId(Utils.generateReqId(baseRequest.getReqTime() + this.appId + baseRequest.getEData()));
-        baseRequest.setMsgId(this.getMsgId());
+        this.appId = secBaseRequest.getApplicationId();
+        setMsgId(Utils.generateReqId(secBaseRequest.getReqTime() + this.appId + secBaseRequest.getEncData()));
+        secBaseRequest.setMsgId(this.getMsgId());
     }
 }

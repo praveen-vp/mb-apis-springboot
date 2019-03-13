@@ -1,23 +1,23 @@
 package com.pvp.bank.app.bankapi.models;
 
+import com.pvp.bank.app.bankapi.base.BaseData;
+import com.pvp.bank.app.bankapi.helper.Utils;
 import lombok.*;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
+import java.security.NoSuchAlgorithmException;
 
 @Entity
 @Table(name = "customer_info")
-@AllArgsConstructor
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
-@Builder
-public class Customer {
+@EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
+@NoArgsConstructor
+public class Customer extends BaseData {
 
-    @Id
-    private @NonNull String userId;
     private String appId;
     private String mPin;
     private String customerStatus;
@@ -30,13 +30,28 @@ public class Customer {
     private Integer mPinAttempt;
     private Integer otp;
 
-    public Customer(String userId, String mPin) {
-        this.userId = userId;
+    public Customer(String userId, String mPin) throws NoSuchAlgorithmException {
+        super(userId);
         this.mPin = mPin;
+        this.mPin = mpinToSHA256();
     }
 
-    // TODO finish the coding here
-    public String mpinToSHA256() {
+    @Builder(builderMethodName = "CustomerBuilder")
+    public Customer(String userId, String appId, String mPin, String customerStatus, String mPinStatus, String createdAt, String statusUpdatedAt, String mPinStatusUpdatedAt, Integer mPinAttempt, Integer otp) {
+        super(userId);
+        this.appId = appId;
+        this.mPin = mPin;
+        this.customerStatus = customerStatus;
+        this.mPinStatus = mPinStatus;
+        this.createdAt = createdAt;
+        this.statusUpdatedAt = statusUpdatedAt;
+        this.mPinStatusUpdatedAt = mPinStatusUpdatedAt;
+        this.mPinAttempt = mPinAttempt;
+        this.otp = otp;
+    }
+
+    public String mpinToSHA256() throws NoSuchAlgorithmException {
+        this.mPin = Utils.get_SHA_SecurePassword(mPin, Utils.SHA512);
         return mPin;
     }
 }

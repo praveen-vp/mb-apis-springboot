@@ -8,17 +8,19 @@ import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.security.NoSuchAlgorithmException;
+
 @ToString
 @EqualsAndHashCode
 @Getter
 @Setter
 @Component
 @RequiredArgsConstructor
-public abstract class BaseController {
+public abstract class BaseController<T extends BaseData> {
 
     protected Boolean requestStatus = false;
-    protected BaseData requestData;
-    protected BaseRequest baseRequest;
+    protected T requestData; // initialize in child class constructor.
+    protected SecureBaseRequest secBaseRequest;
     protected BaseResponse baseResponse;
 
     @Autowired
@@ -26,13 +28,15 @@ public abstract class BaseController {
     @Autowired
     protected @NonNull ValidationService validationService;
 
-    protected BaseResponse process(BaseRequest request) throws Exception {
-
-        initialiseReqResp(request);
-        this.requestStatus = false;
+    protected BaseResponse process(SecureBaseRequest request) {
 
         try {
-            this.requestData = decryptRequest(request);
+
+            initialiseReqResp(request);
+            this.requestStatus = false;
+            System.out.println(this.requestData);
+            this.requestData = castObject(requestData.getClass(), decryptRequest(request));
+            System.out.println(" request data --- " + requestData);
 
             if (validationService.validate(request)) {
                 requestHandler();
@@ -42,6 +46,10 @@ public abstract class BaseController {
         } catch (BankException e) {
             this.baseResponse.setErrorCode(e.getErrorDesc());
             this.baseResponse.setErrorCode(e.getErrorCode());
+        } catch (Exception e1) {
+            e1.printStackTrace();
+            this.baseResponse.setErrorDesc(e1.getLocalizedMessage());
+            this.baseResponse.setErrorCode(Appconstants.FAILED);
         }
 
         if (requestStatus) {
@@ -60,34 +68,28 @@ public abstract class BaseController {
      */
     public abstract void requestHandler() throws BankException;
 
-    /**
-     * This method is required to get the proper object as per the request.
-     *
-     * @param decryptedString
-     * @return
-     * @throws BankException
-     */
-    public BaseData typeCastRequestData(String decryptedString) throws BankException {
-        try {
-            System.out.println(" BaseController decrypted String -- " + decryptedString);
-            return new ObjectMapper().readerFor(BaseData.class).readValue(decryptedString);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new BankException(Appconstants.OBJECT_MAPPING_FAILED);
-        }
-    }
-
-    protected BaseData decryptRequest(BaseRequest request) throws BankException {
-        System.out.println(" Base Controller BaseRequest Received --- " + request);
-        return typeCastRequestData(encryptionDecryptionService.decryptRequest(request.getData().toJson()));
+    protected String decryptRequest(SecureBaseRequest request) throws BankException {
+        System.out.println(" Base Controller SecBaseRequest Received before encryption --- " + request);
+        return encryptionDecryptionService.decryptRequest(request.getEncData());
     }
 
     protected String encryptResponse(BaseResponse response) {
         return this.encryptionDecryptionService.encryptResponse(response.toString());
     }
 
-    public void initialiseReqResp(BaseRequest baseRequest) throws Exception {
-        this.baseRequest = baseRequest;
-        this.baseResponse = new BaseResponse(baseRequest);
+    public void initialiseReqResp(SecureBaseRequest secBaseRequest) throws NoSuchAlgorithmException {
+        System.out.println(this.getClass() + " initialising the request and response" + secBaseRequest);
+        this.secBaseRequest = secBaseRequest;
+        this.baseResponse = new BaseResponse(secBaseRequest);
+    }
+
+    protected T castObject(Class clazz, String decryptedString) throws BankException {
+        try {
+            System.out.println(this.getClass() + " BaseController decrypted String -- " + decryptedString);
+            return new ObjectMapper().readerFor(clazz).readValue(decryptedString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new BankException(Appconstants.OBJECT_MAPPING_FAILED);
+        }
     }
 }

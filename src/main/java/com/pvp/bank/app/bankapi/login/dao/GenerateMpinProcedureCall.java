@@ -10,5 +10,4 @@ public interface GenerateMpinProcedureCall extends JpaRepository<LoginDBCall, Lo
 
     @Procedure(name = "generateMpin")
     String executeProcedure(@Param("userId") String userId, @Param("mPin") String mPin);
-
 }

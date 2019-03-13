@@ -11,11 +11,11 @@ public class Utils {
     public static final String SHA512 = "SHA-512";
     public static final String SHA384 = "SHA-384";
 
-    public static String generateReqId(String inputString) throws Exception {
+    public static String generateReqId(String inputString) throws NoSuchAlgorithmException {
         return get_SHA_SecurePassword(inputString, SHA1);
     }
 
-    private static String get_SHA_SecurePassword(String inputString, String algorithm)
+    public static String get_SHA_SecurePassword(String inputString, String algorithm)
             throws NoSuchAlgorithmException {
 
         String generatedPassword;
