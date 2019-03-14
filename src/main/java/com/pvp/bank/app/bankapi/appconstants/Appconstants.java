@@ -10,5 +10,6 @@ public class Appconstants {
     public static final String OBJECT_MAPPING_FAILED = "EOBJMF";
     public static final String CUST_ID_VALIDATION_FAILED = "ERCIDVF";
 
+    public static final String INVALID_EXP_DATE = "ERINEXP";
 
 }

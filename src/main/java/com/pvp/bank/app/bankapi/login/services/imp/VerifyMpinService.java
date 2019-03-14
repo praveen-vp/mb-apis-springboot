@@ -23,9 +23,9 @@ public class VerifyMpinService implements VerifyMpin {
     public Boolean validateMpinPattern() throws BankException {
 
         if (null != customer.getUserId() && null != customer.getMPin()) {
-            // validate userid according to the requirements
+            // validateDcDetails userid according to the requirements
 
-            // validate mpin according to the requirements
+            // validateDcDetails mpin according to the requirements
             if (customer.getMPin().length() == 6) {
                 try {
                     customer.setMPin(customer.mpinToSHA256());

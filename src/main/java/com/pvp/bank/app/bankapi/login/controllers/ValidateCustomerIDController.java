@@ -36,7 +36,7 @@ public class ValidateCustomerIDController extends BaseController<BaseData> {
     @RequestMapping(value = "/ValidateCustomerId",
             produces = {"application/json"},
             method = RequestMethod.POST)
-    public BaseResponse validateCustomerId(@RequestBody SecureBaseRequest request) throws Exception {
+    public BaseResponse validateCustomerId(@RequestBody SecureBaseRequest request) {
         System.out.println("Request Received -- " + request);
         return super.process(request);
     }
