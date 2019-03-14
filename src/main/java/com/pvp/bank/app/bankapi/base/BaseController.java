@@ -46,10 +46,6 @@ public abstract class BaseController<T extends BaseData> {
         } catch (BankException e) {
             this.baseResponse.setErrorCode(e.getErrorDesc());
             this.baseResponse.setErrorCode(e.getErrorCode());
-        } catch (Exception e1) {
-            e1.printStackTrace();
-            this.baseResponse.setErrorDesc(e1.getLocalizedMessage());
-            this.baseResponse.setErrorCode(Appconstants.FAILED);
         }
 
         if (requestStatus) {
@@ -77,10 +73,15 @@ public abstract class BaseController<T extends BaseData> {
         return this.encryptionDecryptionService.encryptResponse(response.toString());
     }
 
-    public void initialiseReqResp(SecureBaseRequest secBaseRequest) throws NoSuchAlgorithmException {
+    public void initialiseReqResp(SecureBaseRequest secBaseRequest) throws BankException {
         System.out.println(this.getClass() + " initialising the request and response" + secBaseRequest);
-        this.secBaseRequest = secBaseRequest;
-        this.baseResponse = new BaseResponse(secBaseRequest);
+        try {
+            this.secBaseRequest = secBaseRequest;
+            this.baseResponse = new BaseResponse(secBaseRequest);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            throw new BankException(e.getLocalizedMessage());
+        }
     }
 
     protected T castObject(Class clazz, String decryptedString) throws BankException {

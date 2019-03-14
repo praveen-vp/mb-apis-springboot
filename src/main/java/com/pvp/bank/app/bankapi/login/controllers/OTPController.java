@@ -1,6 +1,5 @@
 package com.pvp.bank.app.bankapi.login.controllers;
 
-import com.pvp.bank.app.bankapi.appconstants.Appconstants;
 import com.pvp.bank.app.bankapi.appconstants.RequestConstants;
 import com.pvp.bank.app.bankapi.base.BaseController;
 import com.pvp.bank.app.bankapi.base.BaseResponse;
@@ -14,7 +13,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -31,6 +32,14 @@ public class OTPController extends BaseController<Customer> {
         super(encryptionDecryptionService, validationService);
         this.otpService = otpService;
         this.requestData = new Customer();
+    }
+
+    @RequestMapping(value = "/OTP/{url}", method = RequestMethod.POST)
+    public BaseResponse verifyOtp(@PathVariable String url, @RequestBody SecureBaseRequest baseRequest) {
+        System.out.println(" request received " + baseRequest.toString());
+        this.request = url;
+        System.out.println(" actual URL : /OTP/" + url);
+        return super.process(baseRequest);
     }
 
     @Override
@@ -53,16 +62,9 @@ public class OTPController extends BaseController<Customer> {
                 break;
 
             default:
-                throw new BankException(Appconstants.INVALID_REQUEST);
+                throw new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Invalid Request"
+                );
         }
-    }
-
-    @RequestMapping(value = "/OTP/{id}", method = RequestMethod.POST)
-    public BaseResponse verifyOtp(@PathVariable String id, @RequestBody SecureBaseRequest baseRequest) {
-        System.out.println(" request received " + baseRequest.toString());
-        // path variable values
-        this.request = id;
-        System.out.println( " path variable " + id);
-        return super.process(baseRequest);
     }
 }
