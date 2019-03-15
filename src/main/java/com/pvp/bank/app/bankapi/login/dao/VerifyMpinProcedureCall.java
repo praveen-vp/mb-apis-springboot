@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface VerifyMpinProcedureCall extends JpaRepository<LoginDBCall, Long> {
+public interface VerifyMpinProcedureCall extends JpaRepository<LoginRepository, Long> {
 
     @Procedure(name = "verifyMpin")
     String executeProcedure(@Param("userId") String userId, @Param("mPin") String mPin);

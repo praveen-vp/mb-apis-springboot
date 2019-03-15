@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ValidateCustomerIDProcedureCall extends JpaRepository<LoginDBCall, Long> {
+public interface ValidateCustomerIDProcedureCall extends JpaRepository<LoginRepository, Long> {
 
     @Procedure(name = "validateCustomerID")
     String executeProcedure(@Param("userId") String userId);

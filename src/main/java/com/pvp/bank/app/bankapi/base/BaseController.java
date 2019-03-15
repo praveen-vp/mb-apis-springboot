@@ -64,6 +64,8 @@ public abstract class BaseController<T extends BaseData> {
      */
     public abstract void requestHandler() throws BankException;
 
+    public abstract BaseResponse controllerHandle(SecureBaseRequest baseRequest);
+
     protected String decryptRequest(SecureBaseRequest request) throws BankException {
         System.out.println(" Base Controller SecBaseRequest Received before encryption --- " + request);
         return encryptionDecryptionService.decryptRequest(request.getEncData());

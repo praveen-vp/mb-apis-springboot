@@ -35,7 +35,8 @@ public class VerifyMpinController extends BaseController<Customer> {
     }
 
     @RequestMapping(value = "/VerifyMpin", method = RequestMethod.POST)
-    public BaseResponse verifyMpin(@RequestBody SecureBaseRequest baseRequest) {
+    @Override
+    public BaseResponse controllerHandle(@RequestBody SecureBaseRequest baseRequest) {
         System.out.println(baseRequest);
         return super.process(baseRequest);
     }

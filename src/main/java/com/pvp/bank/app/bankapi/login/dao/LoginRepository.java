@@ -40,8 +40,17 @@ import java.io.Serializable;
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "otp", type = Integer.class),
                         @StoredProcedureParameter(mode = ParameterMode.OUT, name = "responseCode", type = String.class)
                 }),
+        @NamedStoredProcedureQuery(name = "insert_mpin_auth_details",
+                procedureName = "pkg_login.insert_mpin_auth_details",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "userId", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "appId", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "authType", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "actionFor", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "responseCode", type = String.class)
+                })
 })
-public class LoginDBCall implements Serializable {
+public class LoginRepository implements Serializable {
 
     @Id
     @GeneratedValue

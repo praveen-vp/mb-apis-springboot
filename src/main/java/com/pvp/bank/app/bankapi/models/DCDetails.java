@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class DCDetails extends BaseData {
 
     private Long dcNumber;
@@ -15,4 +15,5 @@ public class DCDetails extends BaseData {
     private Integer expYear;
 
     private String name;
+    private String action;
 }

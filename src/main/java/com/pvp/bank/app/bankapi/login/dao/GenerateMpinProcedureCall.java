@@ -6,8 +6,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GenerateMpinProcedureCall extends JpaRepository<LoginDBCall, Long> {
+public interface GenerateMpinProcedureCall extends JpaRepository<LoginRepository, Long> {
 
     @Procedure(name = "generateMpin")
-    String executeProcedure(@Param("userId") String userId, @Param("mPin") String mPin);
+    String generateMpin(@Param("userId") String userId, @Param("mPin") String mPin);
 }

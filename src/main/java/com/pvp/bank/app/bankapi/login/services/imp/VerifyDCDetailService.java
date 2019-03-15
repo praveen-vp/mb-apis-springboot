@@ -57,9 +57,4 @@ public class VerifyDCDetailService implements VerifyDCDetails {
         // API Call TODO
         return true;
     }
-
-    @Override
-    public void insertVerificationData(String userId, String appId) throws BankException {
-        // insert verification data to the mpin gen validation table
-    }
 }

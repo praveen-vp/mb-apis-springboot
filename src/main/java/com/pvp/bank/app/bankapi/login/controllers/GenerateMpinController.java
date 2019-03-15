@@ -29,8 +29,9 @@ public class GenerateMpinController extends BaseController<Customer> {
         this.requestData = new Customer();
     }
 
+    @Override
     @RequestMapping(value = "/GenerateMpin", method = RequestMethod.POST)
-    public BaseResponse generateMpin(@RequestBody SecureBaseRequest baseRequest) {
+    public BaseResponse controllerHandle(@RequestBody SecureBaseRequest baseRequest) {
         System.out.println("Request Received -- " + baseRequest);
         return super.process(baseRequest);
     }

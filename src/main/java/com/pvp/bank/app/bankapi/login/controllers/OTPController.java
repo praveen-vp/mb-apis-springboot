@@ -35,10 +35,16 @@ public class OTPController extends BaseController<Customer> {
     }
 
     @RequestMapping(value = "/OTP/{url}", method = RequestMethod.POST)
-    public BaseResponse verifyOtp(@PathVariable String url, @RequestBody SecureBaseRequest baseRequest) {
+    public BaseResponse controllerHandle(@PathVariable String url,
+                                         @RequestBody SecureBaseRequest baseRequest) {
         System.out.println(" request received " + baseRequest.toString());
         this.request = url;
         System.out.println(" actual URL : /OTP/" + url);
+        return controllerHandle(baseRequest);
+    }
+
+    @Override
+    public BaseResponse controllerHandle(SecureBaseRequest baseRequest) {
         return super.process(baseRequest);
     }
 
