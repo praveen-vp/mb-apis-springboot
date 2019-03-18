@@ -3,14 +3,13 @@ package com.pvp.bank.app.bankapi.login.httpapi;
 import com.pvp.bank.app.bankapi.httpapi.HttpApi;
 import com.pvp.bank.app.bankapi.models.HttpReqModel;
 import com.pvp.bank.app.bankapi.models.HttpRespModel;
+import com.pvp.bank.app.bankapi.models.NBPasswordModel;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-@EqualsAndHashCode(callSuper = false)
 @Data
-public class DCPinAPIService extends HttpApi<HttpRespModel> {
+public class NBPasswordAPIService extends HttpApi<HttpRespModel> {
 
-    public DCPinAPIService(HttpReqModel httpReqModel) {
+    public NBPasswordAPIService(HttpReqModel httpReqModel) {
         super(httpReqModel);
     }
 

@@ -1,9 +1,13 @@
 package com.pvp.bank.app.bankapi.login.services.imp;
 
+import com.pvp.bank.app.bankapi.appconstants.APIConstants;
 import com.pvp.bank.app.bankapi.appconstants.Appconstants;
 import com.pvp.bank.app.bankapi.exceptions.BankException;
+import com.pvp.bank.app.bankapi.login.httpapi.DCPinAPIService;
 import com.pvp.bank.app.bankapi.login.services.VerifyDCDetails;
 import com.pvp.bank.app.bankapi.models.DCDetails;
+import com.pvp.bank.app.bankapi.models.HttpReqModel;
+import com.pvp.bank.app.bankapi.models.HttpRespModel;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -14,16 +18,23 @@ import java.util.Date;
 public class VerifyDCDetailService implements VerifyDCDetails {
 
     private final Date today = new Date();
+    private final DCPinAPIService dcPinAPIService;
+
+    public VerifyDCDetailService() {
+        this.dcPinAPIService = new DCPinAPIService(new HttpReqModel(APIConstants.DC_PIN_API_URL));
+    }
 
     @Override
     public Boolean verifyDCPin(DCDetails details) throws BankException {
 
         if (validateDcDetails(details)) {
-            // proceed to verify the dcPin details.
-            // api call
-
-            return true;
-
+            // proceed to verify the dcPin details, api call
+            try {
+                HttpRespModel response = this.dcPinAPIService.getResponseFromAPI();
+                return response.getApiRespCode().equalsIgnoreCase(Appconstants.SUCCESS);
+            } catch (Exception e) {
+                throw new BankException(e.getLocalizedMessage());
+            }
         } else {
             throw new BankException(Appconstants.INVALID_REQUEST);
         }
