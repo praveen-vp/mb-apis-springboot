@@ -6,11 +6,6 @@ public interface BaseService {
 
     Boolean verifyDetails();
 
-    BaseEntity readInputDetails();
 
     BaseEntity processDetails();
-
-    BaseEntity encryptData();
-
-    BaseEntity decryptInput();
 }

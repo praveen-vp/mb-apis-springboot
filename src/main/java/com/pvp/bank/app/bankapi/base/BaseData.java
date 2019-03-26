@@ -34,9 +34,9 @@ public class BaseData extends JSONObject {
         this.userId = userId;
     }
 
-    public String toJson() {
+    public JSONObject toJson() {
         try {
-            return new ObjectMapper().writeValueAsString(this);
+            return new JSONObject(new ObjectMapper().writeValueAsString(this));
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

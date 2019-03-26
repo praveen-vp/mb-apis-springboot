@@ -1,13 +1,14 @@
 package com.pvp.bank.app.bankapi.account.models;
 
-import lombok.*;
+import com.pvp.bank.app.bankapi.base.BaseData;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
+import javax.persistence.MappedSuperclass;
+
+@Data
 @EqualsAndHashCode
-@ToString
-public class BaseAcctObj {
-    private @NonNull String acctNumber;
+@MappedSuperclass
+public class BaseAcctObj extends BaseData {
+    private String accountNumber;
 }

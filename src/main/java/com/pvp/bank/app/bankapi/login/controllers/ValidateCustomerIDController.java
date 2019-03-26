@@ -45,6 +45,5 @@ public class ValidateCustomerIDController extends BaseController<BaseData> {
     @Override
     public void requestHandler() throws BankException {
         this.requestStatus = this.validateCustomerIDService.validateCustomerID(requestData.getUserId());
-        this.baseResponse.setData(BaseData.BaseDataBuilder().userId(requestData.getUserId()).build());
     }
 }

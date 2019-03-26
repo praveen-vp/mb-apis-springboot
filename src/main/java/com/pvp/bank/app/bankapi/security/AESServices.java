@@ -1,5 +1,6 @@
 package com.pvp.bank.app.bankapi.security;
 
+import com.pvp.bank.app.bankapi.base.BaseResponse;
 import com.pvp.bank.app.bankapi.exceptions.BankException;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class AESServices implements EncryptionDecryptionService {
 
     @Override
-    public String encryptResponse(String responseString) {
+    public String encryptResponse(BaseResponse baseResponse) throws BankException {
         return null;
     }
 

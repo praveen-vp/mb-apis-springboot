@@ -1,5 +1,6 @@
 package com.pvp.bank.app.bankapi.baseservice;
 
+import com.pvp.bank.app.bankapi.base.BaseData;
 import com.pvp.bank.app.bankapi.models.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,12 +11,12 @@ import lombok.Setter;
 @Setter
 public class AbstractBaseService implements BaseService {
 
-    private final @NonNull String userId;
+    private final @NonNull BaseData baseData;
     private final @NonNull String appId;
     private @NonNull BaseEntity requestData;
 
-    public AbstractBaseService(String userId, String appId) {
-        this.userId = userId;
+    public AbstractBaseService(BaseData baseData, String appId) {
+        this.baseData = baseData;
         this.appId = appId;
         this.requestData = new BaseEntity();
     }
@@ -26,14 +27,16 @@ public class AbstractBaseService implements BaseService {
     }
 
     @Override
+    public BaseEntity processDetails() {
+        return null;
+    }
+/*
+
+    @Override
     public BaseEntity readInputDetails() {
         return null;
     }
 
-    @Override
-    public BaseEntity processDetails() {
-        return null;
-    }
 
     @Override
     public BaseEntity encryptData() {
@@ -44,4 +47,5 @@ public class AbstractBaseService implements BaseService {
     public BaseEntity decryptInput() {
         return null;
     }
+*/
 }

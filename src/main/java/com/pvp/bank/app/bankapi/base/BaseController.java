@@ -43,13 +43,14 @@ public abstract class BaseController<T extends BaseData> {
             } else {
                 throw new BankException(Appconstants.FAILED);
             }
+
+            if (requestStatus) {
+                baseResponse.setResponseData(encryptResponse(baseResponse));
+            }
+
         } catch (BankException e) {
             this.baseResponse.setErrorCode(e.getErrorDesc());
             this.baseResponse.setErrorCode(e.getErrorCode());
-        }
-
-        if (requestStatus) {
-            encryptResponse(baseResponse);
         }
 
         this.baseResponse.setRespTime(System.currentTimeMillis());
@@ -67,12 +68,13 @@ public abstract class BaseController<T extends BaseData> {
     public abstract BaseResponse controllerHandle(SecureBaseRequest baseRequest);
 
     protected String decryptRequest(SecureBaseRequest request) throws BankException {
-        System.out.println(" Base Controller SecBaseRequest Received before encryption --- " + request);
+        System.out.println(" Base Controller SecBaseRequest Received before decryption --- " + request);
         return encryptionDecryptionService.decryptRequest(request.getEncData());
     }
 
-    protected String encryptResponse(BaseResponse response) {
-        return this.encryptionDecryptionService.encryptResponse(response.toString());
+    protected String encryptResponse(BaseResponse response) throws BankException {
+        System.out.println(" Base Controller SecBaseResponse Received before encryption --- " + response);
+        return this.encryptionDecryptionService.encryptResponse(response);
     }
 
     public void initialiseReqResp(SecureBaseRequest secBaseRequest) throws BankException {

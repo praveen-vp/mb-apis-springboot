@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import org.json.JSONObject;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -18,7 +19,7 @@ public class BaseResponse extends BaseModel {
     private String errorCode;
     private String errorDesc = "SUCCESS";
     private String appId;
-    private BaseData data;
+    private String responseData; // encrypted data String
 
     public BaseResponse(SecureBaseRequest secBaseRequest) throws NoSuchAlgorithmException {
         this.errorCode = Appconstants.SUCCESS;
