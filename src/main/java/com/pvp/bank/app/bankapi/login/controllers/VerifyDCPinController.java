@@ -38,7 +38,7 @@ public class VerifyDCPinController extends BaseController<DCDetails> {
 
     @RequestMapping(value = "/VerifyDCPin", method = RequestMethod.POST)
     @Override
-    public BaseResponse controllerHandle(@RequestBody SecureBaseRequest baseRequest) {
+    public BaseResponse controllerMappingMethod(@RequestBody SecureBaseRequest baseRequest) {
         System.out.println("Request Received -- " + baseRequest);
         return super.process(baseRequest);
     }

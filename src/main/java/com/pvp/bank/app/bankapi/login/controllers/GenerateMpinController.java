@@ -31,7 +31,7 @@ public class GenerateMpinController extends BaseController<Customer> {
 
     @Override
     @RequestMapping(value = "/GenerateMpin", method = RequestMethod.POST)
-    public BaseResponse controllerHandle(@RequestBody SecureBaseRequest baseRequest) {
+    public BaseResponse controllerMappingMethod(@RequestBody SecureBaseRequest baseRequest) {
         System.out.println("Request Received -- " + baseRequest);
         return super.process(baseRequest);
     }

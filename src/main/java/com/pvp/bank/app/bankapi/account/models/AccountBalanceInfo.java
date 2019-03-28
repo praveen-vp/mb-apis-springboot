@@ -1,6 +1,5 @@
 package com.pvp.bank.app.bankapi.account.models;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

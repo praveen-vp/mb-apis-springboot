@@ -33,7 +33,7 @@ public class VerifyNBController extends BaseController<NBPasswordModel> {
 
     @Override
     @RequestMapping(value = "/VerifyNBPassword", method = RequestMethod.POST)
-    public BaseResponse controllerHandle(SecureBaseRequest baseRequest) {
+    public BaseResponse controllerMappingMethod(SecureBaseRequest baseRequest) {
         System.out.println(" request received -- " + baseRequest);
         return super.process(baseRequest);
     }

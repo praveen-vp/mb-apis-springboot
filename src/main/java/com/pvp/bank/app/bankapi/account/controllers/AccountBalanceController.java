@@ -39,7 +39,7 @@ public class AccountBalanceController extends BaseController<AccountBalanceInfo>
 
     @Override
     @RequestMapping(value = "/GetBalance", method = RequestMethod.POST)
-    public BaseResponse controllerHandle(@RequestBody SecureBaseRequest baseRequest) {
+    public BaseResponse controllerMappingMethod(@RequestBody SecureBaseRequest baseRequest) {
         return super.process(baseRequest);
     }
 }

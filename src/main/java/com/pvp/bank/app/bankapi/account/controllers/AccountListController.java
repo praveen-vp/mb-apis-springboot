@@ -30,6 +30,7 @@ public class AccountListController extends BaseController<AccountInfo> {
     @Override
     public void requestHandler() {
         Set<AccountInfo> accountInfoSet = this.getAccountList.getAccountList(this.requestData.getUserId());
+
         JSONObject baseData = new JSONObject();
         JSONArray jsonArray = new JSONArray();
 
@@ -47,7 +48,7 @@ public class AccountListController extends BaseController<AccountInfo> {
 
     @Override
     @RequestMapping(method = RequestMethod.POST, value = "/GetAccountList")
-    public BaseResponse controllerHandle(@RequestBody SecureBaseRequest baseRequest) {
+    public BaseResponse controllerMappingMethod(@RequestBody SecureBaseRequest baseRequest) {
         return super.process(baseRequest);
     }
 }

@@ -1,7 +1,7 @@
 package com.pvp.bank.app.bankapi.account.service;
 
-public interface AccountStatement<T> {
+public interface AccountStatement<T, U> {
 
-    T getStatement();
+    T getStatement(U type);
 
 }

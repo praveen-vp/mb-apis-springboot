@@ -37,7 +37,7 @@ public class ValidateCustomerIDController extends BaseController<BaseData> {
             produces = {"application/json"},
             method = RequestMethod.POST)
     @Override
-    public BaseResponse controllerHandle(@RequestBody SecureBaseRequest request) {
+    public BaseResponse controllerMappingMethod(@RequestBody SecureBaseRequest request) {
         System.out.println("Request Received -- " + request);
         return super.process(request);
     }

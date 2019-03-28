@@ -40,11 +40,11 @@ public class OTPController extends BaseController<Customer> {
         System.out.println(" request received " + baseRequest.toString());
         this.request = url;
         System.out.println(" actual URL : /OTP/" + url);
-        return controllerHandle(baseRequest);
+        return controllerMappingMethod(baseRequest);
     }
 
     @Override
-    public BaseResponse controllerHandle(SecureBaseRequest baseRequest) {
+    public BaseResponse controllerMappingMethod(SecureBaseRequest baseRequest) {
         return super.process(baseRequest);
     }
 
