@@ -1,9 +1,11 @@
 package com.pvp.bank.app.bankapi.account.service;
 
+import com.pvp.bank.app.bankapi.exceptions.BankException;
+
 public interface GetBalance {
 
-    Double getAvailableBalance(String accountNumber);
+    Double getAvailableBalance(String userId, String accountNumber) throws BankException;
 
-    Double getEffectiveBalance(String accountNumber);
+    Double getEffectiveBalance(String userId, String accountNumber) throws BankException;
 
 }

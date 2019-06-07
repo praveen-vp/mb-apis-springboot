@@ -30,9 +30,9 @@ public class AccountBalanceController extends BaseController<AccountBalanceInfo>
     @Override
     public void requestHandler() throws BankException {
         this.requestData.setAvailableBalance(this.getBalance.getAvailableBalance
-                (this.requestData.getAccountNumber()));
+                (this.requestData.getUserId(), this.requestData.getAccountNumber()));
         this.requestData.setEffectiveBalance(this.getBalance.getEffectiveBalance
-                (this.requestData.getAccountNumber()));
+                (this.requestData.getUserId(), this.requestData.getAccountNumber()));
         this.baseResponse.setResponseData(this.requestData.toJson().toString());
         this.requestStatus = true;
     }
